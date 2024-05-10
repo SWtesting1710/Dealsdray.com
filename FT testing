@@ -1,0 +1,53 @@
+package org.dealsdray;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class FTdealsdray {
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+		
+		WebDriverManager.chromedriver().setup();
+		
+		WebDriver driver = new ChromeDriver();
+		
+		driver.get("https://demo.dealsdray.com/");
+		
+		driver.findElement(By.xpath("//input[@name='username']")).sendKeys("prexo.mis@dealsdray.com");
+		
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("prexo.mis@dealsdray.com");
+	
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		
+		Thread.sleep(7000);
+		
+		
+	    driver.findElement(By.xpath("//button[@fdprocessedid='4ovvy8']")).click();
+	
+		driver.findElement(By.xpath("//span[@mode='mobile']")).click();
+	    
+	   driver.findElement(By.xpath("//button[@align='right']")).click();
+		driver.findElement(By.xpath("//input[@type='file']")).click();
+	    
+	 	File f = new File("C:\\Users\\jaiki\\eclipse-workspace\\A1_Testing\\target\\File\\demo-data.xlsx");
+		FileInputStream fin = new FileInputStream(f);
+		XSSFWorkbook book = new XSSFWorkbook(fin);
+	    XSSFSheet sheet = book.getSheet("sheet1");
+		XSSFRow row = sheet.getRow(0);
+		XSSFCell cell = row.getCell(0); 
+	
+	}
+}
